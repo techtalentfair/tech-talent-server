@@ -1,4 +1,4 @@
-> #### Rules To Be Follow
+> #### Rules To Be Follow :-
 
 1. run `npm install` command after cloning the repository.
 
