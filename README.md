@@ -6,6 +6,27 @@
 
 3. All resources are provided in the github project's dashboard of the repository you can check it for more details about the project.
 
-4. Enjoy Coding with you colleagues 😄.
+4. Follow the MVC Architectural Pattern:
+
+```
+│   index.ts
+│   
+├───controllers
+│       userController.ts
+│       
+├───middlewares
+│       verifyToken.ts
+│       
+├───models
+│       userModel.ts
+│       
+├───routes
+│       userRouts.ts
+│       
+└───utils
+        appError.ts
+```
+
+5. Enjoy Coding with you colleagues 😄.
 
 ---
