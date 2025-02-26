@@ -4,7 +4,9 @@ import dotenv from "dotenv";
 import compression from "compression";
 import mongoose from "mongoose";
 
-dotenv.config({path: './.env'});
+dotenv.config({ path: './.env' });
+
+import aboutPageRoutes from "./routes/aboutPageRoutes";
 
 const app = express();
 
@@ -16,6 +18,9 @@ app.use(compression());
 app.get('/', (req, res) => {
   res.status(200).send('TECHTALENT SERVER!');
 });
+
+
+app.use("/api/about", aboutPageRoutes);
 
 mongoose.set("strictQuery", false);
 
