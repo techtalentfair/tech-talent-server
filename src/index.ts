@@ -3,10 +3,15 @@ import cors from "cors";
 import dotenv from "dotenv";
 import compression from "compression";
 import mongoose from "mongoose";
+import homePageRoutes from "./routes/homePageRoutes";
+dotenv.config({ path: './.env' });
 
-dotenv.config({path: './.env'});
+
 
 const app = express();
+
+// Use the router for the /api/home path.
+app.use("/api/home", homePageRoutes);
 
 app.use(cors());
 app.use(express.json());
