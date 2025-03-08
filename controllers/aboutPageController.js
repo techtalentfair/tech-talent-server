@@ -1,20 +1,20 @@
-const {
-  AppError,
-  STATUS
-} = require("../utils/appError");
+const { AppError, STATUS } = require("../utils/appError");
 const AboutPageModel = require("../models/aboutPage.model");
 const {
   TYPES,
   getErrorMessage,
-  getSuccessMessage
+  getSuccessMessage,
 } = require("../utils/getMessage");
+const asyncWrapper = require("../middlewares/asyncWrapper");
 
 // Get About Page Data
-const getAboutPage = async (req, res) => {
-
+const getAboutPage = async (req, res, next) => {
   const aboutPage = await AboutPageModel.findOne();
   if (!aboutPage) {
-    const error = AppError.create(STATUS.FAILED, getErrorMessage(TYPES.NOT_FOUND, "about page"));
+    const error = AppError.create(
+      STATUS.FAILED,
+      getErrorMessage(TYPES.NOT_FOUND, "about page")
+    );
     return next(error);
   }
 
@@ -22,29 +22,33 @@ const getAboutPage = async (req, res) => {
     status: STATUS.SUCCESS,
     message: getSuccessMessage(TYPES.RETRIVE, "about"),
     data: {
-      aboutPage
-    }
+      aboutPage,
+    },
   });
 };
 
 // Update About Page Data (Protected Route)
-const updateAboutPage = async (req, res) => {
-  try {
-    let aboutPage = await AboutPageModel.findOne();
-    if (!aboutPage) {
-      aboutPage = new AboutPageModel(req.body);
-    } else {
-      Object.assign(aboutPage, req.body);
-    }
-    await aboutPage.save();
-    res.json({ message: "Updated successfully", data: aboutPage });
-  } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+const updateAboutPage = async (req, res, next) => {
+  if (!req.body) {
+    const error = AppError.create(STATUS.FAILED, getErrorMessage(TYPES.BODY));
+    return next(error);
   }
-};
 
+  const updatedAboutPage = await AboutPageModel.findOneAndUpdate({}, req.body, {
+    new: true,
+    upsert: true,
+  });
+
+  res.json({
+    status: STATUS.SUCCESS,
+    message: getSuccessMessage(TYPES.UPDATE, "About page"),
+    data: {
+      updatedAboutPage,
+    },
+  });
+};
 
 module.exports = {
   getAboutPage,
-  updateAboutPage
+  updateAboutPage,
 };
