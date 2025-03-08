@@ -8,7 +8,7 @@ const {
 const asyncWrapper = require("../middlewares/asyncWrapper");
 
 // Get About Page Data
-const getAboutPage = async (req, res, next) => {
+const getAboutPage = asyncWrapper(async (req, res, next) => {
   const aboutPage = await AboutPageModel.findOne();
   if (!aboutPage) {
     const error = AppError.create(
@@ -25,10 +25,10 @@ const getAboutPage = async (req, res, next) => {
       aboutPage,
     },
   });
-};
+});
 
 // Update About Page Data (Protected Route)
-const updateAboutPage = async (req, res, next) => {
+const updateAboutPage = asyncWrapper(async (req, res, next) => {
   if (!req.body) {
     const error = AppError.create(STATUS.FAILED, getErrorMessage(TYPES.BODY));
     return next(error);
@@ -46,7 +46,7 @@ const updateAboutPage = async (req, res, next) => {
       updatedAboutPage,
     },
   });
-};
+});
 
 module.exports = {
   getAboutPage,
