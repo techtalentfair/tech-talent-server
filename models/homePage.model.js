@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const HomePageSchema = new Schema({
@@ -39,4 +39,5 @@ const HomePageSchema = new Schema({
 });
 
 const HomePage = mongoose.model("HomePage", HomePageSchema);
-export default HomePage;
+
+module.exports = HomePage;

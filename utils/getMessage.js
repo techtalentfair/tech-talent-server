@@ -7,7 +7,9 @@ const TYPES = {
   NOT_FOUND: "not found",
   INVALID: "invalid",
   LOGGED_IN: "logged in",
-  UPLOAD: "upload"
+  UPLOAD: "upload",
+  RETRIVE: "retrive",
+  UPDATE: "update"
 };
 
 const getErrorMessage = (type, field) => {
@@ -54,12 +56,20 @@ const getSuccessMessage = (type, field) => {
       message = `Added new ${field}!`;
       break;
 
+    case TYPES.UPDATE:
+      message = `${field} is updated successfully!`;
+      break;
+
     case TYPES.LOGGED_IN:
       message = `User logged in successfully!`;
       break;
 
     case TYPES.UPLOAD:
       message = `File uploaded successfully!`;
+      break;
+
+    case TYPES.RETRIVE:
+      message = `The ${field} page retrived successfully!`;
       break;
   }
 

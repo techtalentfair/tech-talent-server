@@ -1,8 +1,9 @@
-import express from "express";
-import {
+const express = require("express");
+
+const {
   getHomePage,
   updateHomePage,
-} from "../controllers/homePageController.js";
+} = require("../controllers/homePageController.js");
 // import verifyToken from "../middleware/verifyToken.js";
 
 const router = express.Router();
@@ -11,4 +12,4 @@ router.get("/", getHomePage);
 // router.put("/", verifyToken, updateHomePage);
 router.put("/", updateHomePage);
 
-export default router;
+module.exports = router;

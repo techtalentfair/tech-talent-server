@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const CardSchema = new Schema({
@@ -21,4 +21,6 @@ const AboutPageSchema = new Schema({
   },
 });
 
-export const AboutPageModel = mongoose.model("AboutPage", AboutPageSchema);
+const AboutPageModel = mongoose.model("AboutPage", AboutPageSchema);
+
+module.exports = AboutPageModel;

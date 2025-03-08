@@ -1,17 +1,34 @@
-import { AboutPageModel } from "../models/aboutPage.model";
+const {
+  AppError,
+  STATUS
+} = require("../utils/appError");
+const AboutPageModel = require("../models/aboutPage.model");
+const {
+  TYPES,
+  getErrorMessage,
+  getSuccessMessage
+} = require("../utils/getMessage");
 
 // Get About Page Data
-export const getAboutPage = async (req, res) => {
-  try {
-    const aboutPage = await AboutPageModel.findOne();
-    res.json(aboutPage);
-  } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+const getAboutPage = async (req, res) => {
+
+  const aboutPage = await AboutPageModel.findOne();
+  if (!aboutPage) {
+    const error = AppError.create(STATUS.FAILED, getErrorMessage(TYPES.NOT_FOUND, "about page"));
+    return next(error);
   }
+
+  res.json({
+    status: STATUS.SUCCESS,
+    message: getSuccessMessage(TYPES.RETRIVE, "about"),
+    data: {
+      aboutPage
+    }
+  });
 };
 
 // Update About Page Data (Protected Route)
-export const updateAboutPage = async (req, res) => {
+const updateAboutPage = async (req, res) => {
   try {
     let aboutPage = await AboutPageModel.findOne();
     if (!aboutPage) {
@@ -24,4 +41,10 @@ export const updateAboutPage = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
+};
+
+
+module.exports = {
+  getAboutPage,
+  updateAboutPage
 };

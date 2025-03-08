@@ -9,6 +9,8 @@ const {
 } = require("./utils/appError");
 const userRouter = require("./routes/userRoutes");
 const fileRouter = require("./routes/fileRoutes");
+const homePageRouter = require("./routes/homePageRoutes");
+const aboutPageRouter = require("./routes/aboutPageRoutes");
 
 dotenv.config({ path: "./.env" });
 
@@ -21,13 +23,16 @@ app.use(compression());
 
 app.use("/api/users", userRouter);
 app.use("/api/files", fileRouter);
+app.use("/api/home", homePageRouter);
+app.use("/api/about", aboutPageRouter);
 
 app.get('/', (req, res) => {
   res.status(200).send('TECHTALENT SERVER!');
 });
 
 app.use((error, req, res, next) => {
-  res.status(error.statusCode || 500).json({ status: error.statusText || STATUS.ERROR, message: error.message, code: error.statusCode || 500, data: null });
+  res.status(error.statusCode || 500)
+    .json({ status: error.statusText || STATUS.ERROR, message: error.message, code: error.statusCode || 500, data: null });
 });
 
 mongoose.set("strictQuery", false);
