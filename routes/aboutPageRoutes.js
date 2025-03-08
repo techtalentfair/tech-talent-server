@@ -1,14 +1,14 @@
 const express = require("express");
 const {
-  getHomePage,
-  updateHomePage,
-} = require("../controllers/homePageController.js");
+  getAboutPage,
+  updateAboutPage
+} = require("../controllers/aboutPageController.js");
 // import verifyToken from "../middleware/verifyToken.js";
 
 const router = express.Router();
 
-router.get("/", getHomePage);
+router.get("/", getAboutPage);
 // router.put("/", verifyToken, updateHomePage);
-router.put("/", updateHomePage);
+router.put("/", updateAboutPage);
 
 module.exports = router;

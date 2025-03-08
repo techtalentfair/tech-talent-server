@@ -1,5 +1,5 @@
 const { AppError, STATUS } = require("../utils/appError");
-const AboutPageModel = require("../models/aboutPage.model");
+const AboutPage = require("../models/aboutPage");
 const {
   TYPES,
   getErrorMessage,
@@ -9,7 +9,7 @@ const asyncWrapper = require("../middlewares/asyncWrapper");
 
 // Get About Page Data
 const getAboutPage = asyncWrapper(async (req, res, next) => {
-  const aboutPage = await AboutPageModel.findOne();
+  const aboutPage = await AboutPage.findOne();
   if (!aboutPage) {
     const error = AppError.create(
       STATUS.FAILED,
@@ -34,7 +34,7 @@ const updateAboutPage = asyncWrapper(async (req, res, next) => {
     return next(error);
   }
 
-  const updatedAboutPage = await AboutPageModel.findOneAndUpdate({}, req.body, {
+  const updatedAboutPage = await AboutPage.findOneAndUpdate({}, req.body, {
     new: true,
     upsert: true,
   });

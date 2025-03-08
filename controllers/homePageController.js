@@ -7,7 +7,7 @@ const {
   getSuccessMessage,
   TYPES
 } = require("../utils/getMessage.js");
-const HomePage = require("../models/homePage.model.js");
+const HomePage = require("../models/homePage.js");
 const asyncWrapper = require("../middlewares/asyncWrapper.js")
 
 // @desc Get Home Page data

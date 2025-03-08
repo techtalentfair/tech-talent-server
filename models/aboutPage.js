@@ -21,6 +21,6 @@ const AboutPageSchema = new Schema({
   },
 });
 
-const AboutPageModel = mongoose.model("AboutPage", AboutPageSchema);
+const AboutPage = mongoose.model("AboutPage", AboutPageSchema);
 
-module.exports = AboutPageModel;
+module.exports = AboutPage;
