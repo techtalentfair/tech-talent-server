@@ -9,7 +9,7 @@ const {
 } = require("./utils/appError");
 const userRouter = require("./routes/userRoutes");
 const fileRouter = require("./routes/fileRoutes");
-
+const eventRouter = require("./routes/eventRouts");
 dotenv.config({ path: "./.env" });
 
 const app = express();
@@ -21,7 +21,7 @@ app.use(compression());
 
 app.use("/api/users", userRouter);
 app.use("/api/files", fileRouter);
-
+app.use("/api/events", eventRouter);
 app.get('/', (req, res) => {
   res.status(200).send('TECHTALENT SERVER!');
 });
