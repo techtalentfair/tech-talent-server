@@ -9,7 +9,10 @@ const {
 } = require("./utils/appError");
 const userRouter = require("./routes/userRoutes");
 const fileRouter = require("./routes/fileRoutes");
-const eventRouter = require("./routes/eventRouts");
+const homePageRouter = require("./routes/homePageRoutes");
+const aboutPageRouter = require("./routes/aboutPageRoutes");
+const eventPageRouter = require("./routes/eventRouts");
+
 dotenv.config({ path: "./.env" });
 
 const app = express();
@@ -21,13 +24,17 @@ app.use(compression());
 
 app.use("/api/users", userRouter);
 app.use("/api/files", fileRouter);
-app.use("/api/events", eventRouter);
+app.use("/api/home", homePageRouter);
+app.use("/api/about", aboutPageRouter);
+app.use("/api/events", eventPageRouter);
+
 app.get('/', (req, res) => {
   res.status(200).send('TECHTALENT SERVER!');
 });
 
 app.use((error, req, res, next) => {
-  res.status(error.statusCode || 500).json({ status: error.statusText || STATUS.ERROR, message: error.message, code: error.statusCode || 500, data: null });
+  res.status(error.statusCode || 500)
+    .json({ status: error.statusText || STATUS.ERROR, message: error.message, code: error.statusCode || 500, data: null });
 });
 
 mongoose.set("strictQuery", false);
