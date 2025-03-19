@@ -9,7 +9,8 @@ const TYPES = {
   LOGGED_IN: "logged in",
   UPLOAD: "upload",
   RETRIVE: "retrive",
-  UPDATE: "update"
+  UPDATE: "update",
+  DELETE: "delete"
 };
 
 const getErrorMessage = (type, field) => {
@@ -69,7 +70,11 @@ const getSuccessMessage = (type, field) => {
       break;
 
     case TYPES.RETRIVE:
-      message = `The ${field} page retrived successfully!`;
+      message = `The ${field} retrived successfully!`;
+      break;
+
+    case TYPES.DELETE:
+      message = `The ${field} is deleted successfully!`;
       break;
   }
 
