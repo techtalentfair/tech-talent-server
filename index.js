@@ -9,9 +9,8 @@ const {
 } = require("./utils/appError");
 const userRouter = require("./routes/userRoutes");
 const fileRouter = require("./routes/fileRoutes");
-const homePageRouter = require("./routes/homePageRoutes");
-const aboutPageRouter = require("./routes/aboutPageRoutes");
-const eventPageRouter = require("./routes/eventRouts");
+const eventRouter = require("./routes/eventRoutes");
+const publicRouter = require("./routes/publicRoutes");
 
 dotenv.config({ path: "./.env" });
 
@@ -24,9 +23,8 @@ app.use(compression());
 
 app.use("/api/users", userRouter);
 app.use("/api/files", fileRouter);
-app.use("/api/home", homePageRouter);
-app.use("/api/about", aboutPageRouter);
-app.use("/api/events", eventPageRouter);
+app.use("/api/events", eventRouter);
+app.use("/api/public", publicRouter);
 
 app.get('/', (req, res) => {
   res.status(200).send('TECHTALENT SERVER!');
