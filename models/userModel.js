@@ -15,6 +15,19 @@ const userScheme = new mongoose.Schema({
     type: String,
     required: [true, "Password is required!"],
     min: 8,
+  },
+  positions: {
+    type: [String]
+  },
+  role: {
+    type: String
+  },
+  isHead: {
+    type: Boolean,
+    default: false
+  },
+  image: {
+    type: String
   }
 });
 
