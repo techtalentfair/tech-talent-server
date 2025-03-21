@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const {
   STATUS
 } = require("./utils/appError");
-const userRouter = require("./routes/userRoutes");
+const authRouter = require("./routes/authRoutes");
 const fileRouter = require("./routes/fileRoutes");
 const eventRouter = require("./routes/eventRoutes");
 const publicRouter = require("./routes/publicRoutes");
@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());
 
-app.use("/api/users", userRouter);
+app.use("/api/auth", authRouter);
 app.use("/api/files", fileRouter);
 app.use("/api/events", eventRouter);
 app.use("/api/public", publicRouter);
