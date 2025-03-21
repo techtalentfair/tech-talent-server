@@ -3,7 +3,6 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const compression = require("compression");
 const mongoose = require("mongoose");
-const Sib = require("sib-api-v3-sdk");
 
 const {
   STATUS
