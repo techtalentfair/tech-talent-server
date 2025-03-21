@@ -6,21 +6,29 @@ getProjectDetail = async (req, res) => {
 		if (!project) {
 			return res.status(404).send("Project not found");
 		}
-		res.render('projectDetail', { project });
+		res.status(200).send(project);
 	} catch (error) {
 		res.status(500).send("Server Error");
 	}
 };
 getProjects = async (req, res) => {
 	try {
-		const projects = await Project.find();
-		res.render('projects', { projects });
+		const projects = await Project.find({});
+		res.status(200).send(projects);
 	} catch (error) {
+		console.log(error);
 		res.status(500).send("Server Error");
 	}
 };
 createProject = async (req, res) => {
 	try {
+		if (!req.body.name || !req.body.leader || !req.body.teamMembers || !req.body.description ) {
+			return res.status(400).send("Please fill all fields");
+		}
+		let found_project = await Project.findOne({ name: req.body.name });
+		if (found_project) {
+		    return res.status(400).send("Project already exists");
+		}
 		const project = new Project({
 			name: req.body.name,
 			leader: req.body.leader,
@@ -52,6 +60,10 @@ updateProject = async (req, res) => {
 		if (!project) {
 			return res.status(404).send("Project not found");
 		}
+		let found_project = await Project.findOne({ name: req.body.name });
+		if (found_project) {
+		    return res.status(400).send("Project already exists");
+		}
 		project.name = req.body.name;
 		project.leader = req.body.leader;
 		project.teamMembers = req.body.teamMembers;
@@ -62,7 +74,7 @@ updateProject = async (req, res) => {
 	} catch (error) {
 		res.status(500).send("Server Error");
 	}
-}
+};
 
 
 module.exports = {
