@@ -13,7 +13,8 @@ const TYPES = {
   DELETE: "delete",
   AUTHENTICATE: 'authenticate',
   AUTHORIZE: 'authorize',
-  LOGGED_OUT: 'logged out'
+  LOGGED_OUT: 'logged out',
+  SEND: 'send'
 };
 
 const getErrorMessage = (type, field) => {
@@ -90,6 +91,10 @@ const getSuccessMessage = (type, field) => {
 
     case TYPES.LOGGED_OUT:
       message = `User logged out successfully!`;
+      break;
+
+    case TYPES.SEND:
+      message = `Email sent successfully!`;
       break;
   }
 

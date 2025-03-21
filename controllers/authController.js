@@ -1,6 +1,5 @@
 const bcryptjs = require("bcryptjs");
 
-const User = require("../models/userModel");
 const {
   AppError,
   STATUS
@@ -10,9 +9,11 @@ const {
   getErrorMessage,
   getSuccessMessage
 } = require("../utils/getMessage");
+const User = require("../models/userModel");
 const asyncWrapper = require("../middlewares/asyncWrapper");
 const generateToken = require("../utils/generateToken");
 const ROLES = require("../utils/roles");
+const SMTP = require("../utils/email");
 
 const signUp = asyncWrapper(async (req, res, next) => {
 
@@ -130,9 +131,44 @@ const signOut = asyncWrapper(async (req, res, next) => {
   });
 });
 
+const forgetPassword = asyncWrapper(async (req, res, next) => {
+
+  const { email } = req.body;
+  if (!email) {
+    const error = AppError.create(STATUS.FAILED, getErrorMessage(TYPES.REQUIRED, '(email)'), 400);
+    return next(error);
+  }
+
+  const regex = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
+  if (!regex.test(email)) {
+    const error = AppError.create(STATUS.FAILED, getErrorMessage(TYPES.INVALID, 'email'), 400);
+    return next(error);
+  }
+
+  const oldUser = await User.findOne({ email });
+  if (!oldUser) {
+    const error = AppError.create(STATUS.FAILED, getErrorMessage(TYPES.NOT_FOUND, `user with email '${email}'`), 404);
+    return next(error);
+  }
+
+  const token = await generateToken({ email }, process.env.EMAIL_EXPIRES_IN);
+
+  await SMTP.sendResetPasswordEmail(email, '⚠ Forget Your Password!', {
+    url: `path/token=${token}`,
+    name: oldUser.name
+  });
+
+  res.json({
+    status: STATUS.SUCCESS,
+    message: getSuccessMessage(TYPES.SEND),
+    code: 200
+  });
+});
+
 
 module.exports = {
   signUp,
   signIn,
-  signOut
+  signOut,
+  forgetPassword
 };

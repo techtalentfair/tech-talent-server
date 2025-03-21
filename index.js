@@ -3,6 +3,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const compression = require("compression");
 const mongoose = require("mongoose");
+const Sib = require("sib-api-v3-sdk");
 
 const {
   STATUS
@@ -12,7 +13,7 @@ const fileRouter = require("./routes/fileRoutes");
 const eventRouter = require("./routes/eventRoutes");
 const publicRouter = require("./routes/publicRoutes");
 
-dotenv.config({ path: "./.env" });
+dotenv.config({ path: `${__dirname}/.env` });
 
 const app = express();
 

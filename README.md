@@ -27,6 +27,30 @@
         appError.ts
 ```
 
-5. Enjoy Coding with you colleagues 😄.
+5. Set your `.env` enviroment variables as follows:
+
+```txt
+# DATABASE AND PORT
+PORT=
+LOCAL_DB=
+
+# CLOUDINARY
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
+# JWT
+TOKEN_SECRET=
+REFRESH_EXPIRES_IN=
+ACCESS_EXPIRES_IN=
+EMAIL_EXPIRES_IN=
+
+# Brevo SMTP
+API_KEY=
+EMAIL_USER=
+
+```
+
+6. Enjoy Coding with you colleagues 😄.
 
 ---

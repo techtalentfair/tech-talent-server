@@ -3,7 +3,8 @@ const express = require("express");
 const {
   signUp,
   signIn,
-  signOut
+  signOut,
+  forgetPassword
 } = require("../controllers/authController");
 const verifyToken = require("../middlewares/verifyToken");
 
@@ -14,6 +15,9 @@ router.route("/sign-up")
 
 router.route("/sign-in")
   .get(signIn);
+
+router.route("/forget-password")
+  .post(forgetPassword);
 
 router.route("/sign-out")
   .get(verifyToken, signOut);
