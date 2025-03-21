@@ -34,6 +34,12 @@ const signUp = asyncWrapper(async (req, res, next) => {
     return next(error);
   }
 
+  const regex = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
+  if (!regex.test(email)) {
+    const error = AppError.create(STATUS.FAILED, getErrorMessage(TYPES.INVALID, 'email'), 400);
+    return next(error);
+  }
+
   const oldUser = await User.findOne({ email: email });
   if (oldUser) {
     const error = AppError.create(STATUS.FAILED, getErrorMessage(TYPES.EXIST, email), 400);
@@ -84,6 +90,12 @@ const signIn = asyncWrapper(async (req, res, next) => {
 
   if (!email || !password) {
     const error = AppError.create(STATUS.FAILED, getErrorMessage(TYPES.REQUIRED, "(email, password)"), 400);
+    return next(error);
+  }
+
+  const regex = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
+  if (!regex.test(email)) {
+    const error = AppError.create(STATUS.FAILED, getErrorMessage(TYPES.INVALID, 'email'), 400);
     return next(error);
   }
 
