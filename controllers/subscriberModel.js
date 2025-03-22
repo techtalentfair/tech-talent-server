@@ -1,4 +1,9 @@
-const { AppError, STATUS } = require("../utils/appError");
+const mongoose = require("mongoose");
+
+const {
+  AppError,
+  STATUS
+} = require("../utils/appError");
 const {
   TYPES,
   getErrorMessage,
@@ -8,8 +13,10 @@ const Subscriber = require("../models/subscriberModel");
 const asyncWrapper = require("../middlewares/asyncWrapper");
 
 // add a new subscriber
-const addSubscriber = asyncWrapper(async (req, res, next) => {
+const createSubscriber = asyncWrapper(async (req, res, next) => {
+
   const { email } = req.body;
+
   if (!email) {
     const error = AppError.create(
       STATUS.FAILED,
@@ -18,6 +25,7 @@ const addSubscriber = asyncWrapper(async (req, res, next) => {
     );
     return next(error);
   }
+
   const regex = new RegExp(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/);
   if (!regex.test(email)) {
     const error = AppError.create(
@@ -27,83 +35,115 @@ const addSubscriber = asyncWrapper(async (req, res, next) => {
     );
     return next(error);
   }
+
   const subscriberExists = await Subscriber.findOne({ email });
   if (subscriberExists) {
     const error = AppError.create(
       STATUS.FAILED,
-      getErrorMessage(TYPES.EXISTS, "subscriber with email"),
+      getErrorMessage(TYPES.SUBSCRIBE, email),
       400
     );
     return next(error);
   }
+
   const newSubscriber = await Subscriber.create({ email });
+
   res.json({
     status: STATUS.SUCCESS,
-    success: true,
-    message: getSuccessMessage(TYPES.CREATED, "subscriber"),
-    data: { newSubscriber },
+    message: getSuccessMessage(TYPES.ADDED, "subscriber"),
+    code: 201,
+    data: {
+      newSubscriber
+    },
   });
 });
-// delete subscriber (Protected Route)
 
+// delete subscriber (Protected Route)
 const deleteSubscriberById = asyncWrapper(async (req, res, next) => {
+
   const { id } = req.params;
-  const subscriber = await Subscriber.findByIdAndDelete(id);
-  if (!subscriber) {
+
+  if (!id) {
+    const error = AppError.create(STATUS.FAILED, getErrorMessage(TYPES.REQUIRED, "(id)"));
+    return next(error);
+  }
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    const error = AppError.create(STATUS.FAILED, getErrorMessage(TYPES.INVALID, "Object id"));
+    return next(error);
+  }
+
+  const oldSubscriber = await Subscriber.findById(id);
+  if (!oldSubscriber) {
     const error = AppError.create(
       STATUS.FAILED,
-      getErrorMessage(TYPES.NOT_FOUND, "subscriber with email"),
+      getErrorMessage(TYPES.NOT_FOUND, "subscriber"),
       404
     );
     return next(error);
   }
+
+  await oldSubscriber.deleteOne();
+
   res.json({
     status: STATUS.SUCCESS,
-    success: true,
     message: getSuccessMessage(TYPES.DELETE, "subscriber"),
-    data: { subscriber },
+    code: 204
   });
 });
+
 // get all subscribers(Protected Route)
 const getAllSubscribers = asyncWrapper(async (req, res, next) => {
+
   const subscribers = await Subscriber.find({});
-  if (!subscribers) {
-    const error = AppError.create(
-      STATUS.FAILED,
-      getErrorMessage(TYPES.NOT_FOUND, "subscribers"),
-      404
-    );
-    return next(error);
-  }
+
   res.json({
     status: STATUS.SUCCESS,
-    success: true,
     message: getSuccessMessage(TYPES.RETRIVE, "subscribers"),
-    data: { subscribers },
+    code: 200,
+    data: {
+      subscribers
+    },
   });
 });
 // get subscriber by id (Protected Route)
 const getSubscriberById = asyncWrapper(async (req, res, next) => {
+
   const { id } = req.params;
+
+  if (!id) {
+    const error = AppError.create(STATUS.FAILED, getErrorMessage(TYPES.REQUIRED, "(id)"));
+    return next(error);
+  }
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    const error = AppError.create(STATUS.FAILED, getErrorMessage(TYPES.INVALID, "Object id"));
+    return next(error);
+  }
+
   const subscriber = await Subscriber.findById(id);
   if (!subscriber) {
     const error = AppError.create(
       STATUS.FAILED,
-      getErrorMessage(TYPES.NOT_FOUND, "subscriber with id"),
+      getErrorMessage(TYPES.NOT_FOUND, "subscriber"),
       404
     );
     return next(error);
   }
+
   res.json({
     status: STATUS.SUCCESS,
-    success: true,
     message: getSuccessMessage(TYPES.RETRIVE, "subscriber"),
-    data: { subscriber },
+    code: 200,
+    data: {
+      subscriber
+    },
   });
 });
+
 module.exports = {
-  addSubscriber,
+  createSubscriber,
   deleteSubscriberById,
   getAllSubscribers,
-  getSubscriberById,
+  getSubscriberById
 };
