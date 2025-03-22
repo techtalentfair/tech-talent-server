@@ -9,6 +9,7 @@ const authRouter = require("./routes/authRoutes");
 const fileRouter = require("./routes/fileRoutes");
 const eventRouter = require("./routes/eventRoutes");
 const publicRouter = require("./routes/publicRoutes");
+const subscribersRouter = require("./routes/subscriberRoutes");
 
 dotenv.config({ path: `${__dirname}/.env` });
 
@@ -23,6 +24,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/files", fileRouter);
 app.use("/api/events", eventRouter);
 app.use("/api/public", publicRouter);
+app.use("/api",subscribersRouter);
 
 app.get("/", (req, res) => {
   res.status(200).send("TECHTALENT SERVER!");
