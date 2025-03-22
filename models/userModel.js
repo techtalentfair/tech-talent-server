@@ -4,12 +4,12 @@ const userScheme = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Name is required!"],
-    min: 3
+    min: 3,
   },
   email: {
     type: String,
     required: [true, "Email is required!"],
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
@@ -17,18 +17,18 @@ const userScheme = new mongoose.Schema({
     min: 8,
   },
   positions: {
-    type: [String]
+    type: [String],
   },
   role: {
-    type: String
+    type: String,
   },
   isHead: {
     type: Boolean,
-    default: false
+    default: false,
   },
   image: {
-    type: String
-  }
+    type: String,
+  },
 });
 
 const User = mongoose.model("User", userScheme);
