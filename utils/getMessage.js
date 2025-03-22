@@ -14,7 +14,8 @@ const TYPES = {
   AUTHENTICATE: 'authenticate',
   AUTHORIZE: 'authorize',
   LOGGED_OUT: 'logged out',
-  SEND: 'send'
+  SEND: 'send',
+  SUBSCRIBE: 'subscribe'
 };
 
 const getErrorMessage = (type, field) => {
@@ -55,6 +56,10 @@ const getErrorMessage = (type, field) => {
 
     case TYPES.AUTHORIZE:
       message = `Permission denied. You do not have access to this resource!`;
+      break;
+
+    case TYPES.SUBSCRIBE:
+      message = `The email ${field} already subscribed!`;
       break;
   }
 

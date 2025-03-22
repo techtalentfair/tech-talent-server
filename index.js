@@ -9,7 +9,8 @@ const authRouter = require("./routes/authRoutes");
 const fileRouter = require("./routes/fileRoutes");
 const eventRouter = require("./routes/eventRoutes");
 const publicRouter = require("./routes/publicRoutes");
-const subscribersRouter = require("./routes/subscriberRoutes");
+const subscriberRouter = require("./routes/subscriberRoutes");
+const emailRouter = require("./routes/emailRoutes");
 
 dotenv.config({ path: `${__dirname}/.env` });
 
@@ -21,16 +22,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(compression());
 
 app.use("/api/auth", authRouter);
+app.use("/api/public", publicRouter);
 app.use("/api/files", fileRouter);
 app.use("/api/events", eventRouter);
-app.use("/api/public", publicRouter);
-app.use("/api",subscribersRouter);
+app.use("/api/subscribers", subscriberRouter);
+app.use("/api/emails", emailRouter);
 
 app.get("/", (req, res) => {
   res.status(200).send("TECHTALENT SERVER!");
 });
 
 app.use((error, req, res, next) => {
+
   res.status(error.statusCode || 500).json({
     status: error.statusText || STATUS.ERROR,
     message: error.message,

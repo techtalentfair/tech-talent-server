@@ -90,97 +90,10 @@ const updateAboutPage = asyncWrapper(async (req, res, next) => {
   });
 });
 
-// get All ContactUs Emails (Protected Route)
-const getContactUsEmails = asyncWrapper(async (req, res, next) => {
-  const Emails = await Email.find({});
-  if (!Emails) {
-    const error = AppError.create(
-      STATUS.FAILED,
-      getErrorMessage(TYPES.NOT_FOUND, "contactus emails")
-    );
-    return next(error);
-  }
-  res.json({
-    status: STATUS.SUCCESS,
-    message: getSuccessMessage(TYPES.RETRIVE, "contact us emails"),
-    data: {
-      Emails,
-    },
-  });
-});
 
-// Get Single ContactUs Email (Protected Route)
-const getContactUsEmailById = asyncWrapper(async (req, res, next) => {
-  const email = await Email.findById(req.params.id);
-  if (!email) {
-    const error = AppError.create(
-      STATUS.FAILED,
-      getErrorMessage(TYPES.NOT_FOUND, "contact us email")
-    );
-    return next(error);
-  }
-  res.json({
-    status: STATUS.SUCCESS,
-    message: getSuccessMessage(TYPES.RETRIVE, "contact us email"),
-    data: {
-      email,
-    },
-  });
-});
-
-const createContactUsEmail = asyncWrapper(async (req, res, next) => {
-  const { name, email, phone, details } = req.body;
-  if (!name || !email || !phone || !details) {
-    const error = AppError.create(
-      STATUS.FAILED,
-      getErrorMessage(TYPES.INVALID, "All fields are required")
-    );
-    return next(error);
-  }
-  if (await Email.findOne({ email: email })) {
-    const error = AppError.create(
-      STATUS.FAILED,
-      getErrorMessage(TYPES.INVALID, "Email already exists")
-    );
-    return next(error); // if email already exists, return an error and stop the process. 400 Bad Request status code is used here. 409 Conflict status code is also possible.
-  }
-  const newEmail = new Email({ name, email, phone, details });
-  await newEmail.save();
-
-  res.json({
-    status: STATUS.SUCCESS,
-    message: getSuccessMessage(TYPES.CREATE, "ContactUs"),
-    data: {
-      newEmail,
-    },
-  });
-});
-
-// delete Single ContactUs Email (Protected Route)
-const deleteContactUsEmailById = asyncWrapper(async (req, res, next) => {
-  const email = await Email.findByIdAndDelete(req.params.id);
-  if (!email) {
-    const error = AppError.create(
-      STATUS.FAILED,
-      getErrorMessage(TYPES.NOT_FOUND, "ContactUs Email ")
-    );
-    return next(error);
-  }
-  res.json({
-    status: STATUS.SUCCESS,
-    message: getSuccessMessage(TYPES.DELETE, "Contact-Us email"),
-    data: {
-      email,
-    },
-  });
-});
 module.exports = {
   getHomePage,
   updateHomePage,
   getAboutPage,
   updateAboutPage,
-  getContactUsEmails,
-  getContactUsEmailById,
-  createContactUsEmail,
-  deleteContactUsEmailById,
 };

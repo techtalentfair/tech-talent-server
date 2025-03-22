@@ -5,10 +5,6 @@ const {
   updateAboutPage,
   getHomePage,
   updateHomePage,
-  getContactUsEmails,
-  getContactUsEmailById,
-  createContactUsEmail,
-  deleteContactUsEmailById,
 } = require("../controllers/publicController");
 const verifyToken = require("../middlewares/verifyToken");
 const allowedTo = require("../middlewares/allowedTo");
@@ -26,24 +22,4 @@ router
   .get(getAboutPage)
   .put(verifyToken, allowedTo(ROLES.ADMIN, ROLES.SUPER_ADMIN), updateAboutPage);
 
-router
-  .route("/contact-us/emails")
-  .get(
-    verifyToken,
-    allowedTo(ROLES.ADMIN, ROLES.SUPER_ADMIN),
-    getContactUsEmails
-  )
-  .post(createContactUsEmail);
-router
-  .route("/contact-us/emails/:id")
-  .get(
-    verifyToken,
-    allowedTo(ROLES.ADMIN, ROLES.SUPER_ADMIN),
-    getContactUsEmailById
-  )
-  .delete(
-    verifyToken,
-    allowedTo(ROLES.ADMIN, ROLES.SUPER_ADMIN),
-    deleteContactUsEmailById
-  );
 module.exports = router;
