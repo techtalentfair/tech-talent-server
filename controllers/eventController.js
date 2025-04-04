@@ -36,7 +36,7 @@ const createEvent = asyncWrapper(async (req, res, next) => {
         return next(error);
     }
 
-    // TODO: wait for filobatear Project Model!
+    // TODO: wait for philopater Project Model!
     // TODO: the agenda.projects contains ObjectId's to retrive all coresponding projects.
     let projects, separators;
     if (agenda) {

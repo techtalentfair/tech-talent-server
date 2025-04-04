@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const projectSchema = new mongoose.Schema({
-	name: String,
-	leader: String,
-	teamMembers: [String],
-	description: String,
-	createdAt: { type: Date, default: Date.now }
+	Title: String,
+	Members: [String],
+	details: String,
+	vedio: String,
+	GitHub: String,
 });
 
 const Project = mongoose.model("Project", projectSchema);
