@@ -9,6 +9,7 @@ const authRouter = require("./routes/authRoutes");
 const fileRouter = require("./routes/fileRoutes");
 const eventRouter = require("./routes/eventRoutes");
 const publicRouter = require("./routes/publicRoutes");
+const projects = require("./routes/projectsDetailsRoutes");
 const subscriberRouter = require("./routes/subscriberRoutes");
 const emailRouter = require("./routes/emailRoutes");
 
@@ -25,6 +26,9 @@ app.use("/api/auth", authRouter);
 app.use("/api/public", publicRouter);
 app.use("/api/files", fileRouter);
 app.use("/api/events", eventRouter);
+
+app.use("/api/public", publicRouter);
+app.use("/api/projects", projects);
 app.use("/api/subscribers", subscriberRouter);
 app.use("/api/emails", emailRouter);
 
@@ -58,3 +62,4 @@ mongoose
   .catch((err) => {
     console.log("DB ERROR!:", err);
   });
+
