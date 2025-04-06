@@ -1,11 +1,28 @@
 const mongoose = require('mongoose');
 
 const projectSchema = new mongoose.Schema({
-	Title: String,
-	Members: [String],
-	details: String,
-	vedio: String,
-	GitHub: String,
+	title: {
+		type: String,
+		required: true,
+		unique: true
+	},
+	members: {
+		type: [String],
+		default: []
+	},
+	details: {
+		type: String,
+		required: true
+	},
+	video: {
+		type: String,
+		required: true
+	},
+	github: {
+		type: String,
+		required: true,
+		unique: true
+	},
 });
 
 const Project = mongoose.model("Project", projectSchema);
