@@ -10,7 +10,12 @@ const TYPES = {
   UPLOAD: "upload",
   RETRIVE: "retrive",
   UPDATE: "update",
-  DELETE: "delete"
+  DELETE: "delete",
+  AUTHENTICATE: 'authenticate',
+  AUTHORIZE: 'authorize',
+  LOGGED_OUT: 'logged out',
+  SEND: 'send',
+  SUBSCRIBE: 'subscribe'
 };
 
 const getErrorMessage = (type, field) => {
@@ -44,6 +49,18 @@ const getErrorMessage = (type, field) => {
     case TYPES.UPLOAD:
       message = `Failed to upload the file!`;
       break;
+
+    case TYPES.AUTHENTICATE:
+      message = `You're not authorized!`;
+      break;
+
+    case TYPES.AUTHORIZE:
+      message = `Permission denied. You do not have access to this resource!`;
+      break;
+
+    case TYPES.SUBSCRIBE:
+      message = `The email ${field} already subscribed!`;
+      break;
   }
 
   return message;
@@ -75,6 +92,14 @@ const getSuccessMessage = (type, field) => {
 
     case TYPES.DELETE:
       message = `The ${field} is deleted successfully!`;
+      break;
+
+    case TYPES.LOGGED_OUT:
+      message = `User logged out successfully!`;
+      break;
+
+    case TYPES.SEND:
+      message = `Email sent successfully!`;
       break;
   }
 

@@ -1,8 +1,9 @@
 class AppError extends Error {
-  static create(status, message, data) {
+  static create(status, message, code, data) {
     return {
       status,
       message,
+      code,
       data
     };
   }

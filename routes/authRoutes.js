@@ -2,8 +2,11 @@ const express = require("express");
 
 const {
   signUp,
-  signIn
+  signIn,
+  signOut,
+  forgetPassword
 } = require("../controllers/authController");
+const verifyToken = require("../middlewares/verifyToken");
 
 const router = express.Router();
 
@@ -12,5 +15,11 @@ router.route("/sign-up")
 
 router.route("/sign-in")
   .get(signIn);
+
+router.route("/forget-password")
+  .post(forgetPassword);
+
+router.route("/sign-out")
+  .get(verifyToken, signOut);
 
 module.exports = router;

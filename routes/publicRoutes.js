@@ -4,17 +4,22 @@ const {
   getAboutPage,
   updateAboutPage,
   getHomePage,
-  updateHomePage
+  updateHomePage,
 } = require("../controllers/publicController");
+const verifyToken = require("../middlewares/verifyToken");
+const allowedTo = require("../middlewares/allowedTo");
+const ROLES = require("../utils/roles");
 
 const router = express.Router();
 
-router.route('/home')
+router
+  .route("/home")
   .get(getHomePage)
-  .put(updateHomePage);
+  .put(verifyToken, allowedTo(ROLES.ADMIN, ROLES.SUPER_ADMIN), updateHomePage);
 
-router.route('/about')
+router
+  .route("/about")
   .get(getAboutPage)
-  .put(updateAboutPage);
+  .put(verifyToken, allowedTo(ROLES.ADMIN, ROLES.SUPER_ADMIN), updateAboutPage);
 
 module.exports = router;
