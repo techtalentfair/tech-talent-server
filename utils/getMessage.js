@@ -15,7 +15,8 @@ const TYPES = {
   AUTHORIZE: 'authorize',
   LOGGED_OUT: 'logged out',
   SEND: 'send',
-  SUBSCRIBE: 'subscribe'
+  SUBSCRIBE: 'subscribe',
+  UNIQUE: "unique"
 };
 
 const getErrorMessage = (type, field) => {
@@ -60,6 +61,10 @@ const getErrorMessage = (type, field) => {
 
     case TYPES.SUBSCRIBE:
       message = `The email ${field} already subscribed!`;
+      break;
+
+    case TYPES.UNIQUE:
+      message = `The ${field} already exist!`;
       break;
   }
 

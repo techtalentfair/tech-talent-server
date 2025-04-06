@@ -21,7 +21,7 @@ router.route('/')
   .post(verifyToken, allowedTo(ROLES.ADMIN, ROLES.SUPER_ADMIN), createEvent);
 
 router.route('/:id')
-  .get(verifyToken, getEventById)
+  .get(getEventById)
   .put(verifyToken, allowedTo(ROLES.ADMIN, ROLES.SUPER_ADMIN), updateEventbyId)
   .delete(verifyToken, allowedTo(ROLES.ADMIN, ROLES.SUPER_ADMIN), deleteEventById)
   .post(verifyToken, allowedTo(ROLES.ADMIN, ROLES.SUPER_ADMIN), upload.single("file"), addImageToEvent);
