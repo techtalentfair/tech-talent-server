@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
 const separatorSchema = require("./separatorSchema");
+const Project = require("../projectModel");
 
 const agendaSchema = new mongoose.Schema({
 
-  // TODO: add list of projects
+  projects: {
+    type: [Project.schema]
+  },
   separators: {
     type: [separatorSchema]
   }
