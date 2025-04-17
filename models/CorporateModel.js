@@ -25,6 +25,7 @@ const corporateSchema = new mongoose.Schema({
   phoneNumber: {
     type: String,
     required: true,
+    length: 11
   }
 }, {
   timestamps: true

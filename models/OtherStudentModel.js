@@ -5,7 +5,7 @@ const otherStudentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  ld: {
+  studentId: {
     type: String,
     required: true,
     unique: true,
@@ -14,9 +14,11 @@ const otherStudentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  ldNational: {
+  nationalId: {
     type: String,
     required: true,
+    unique: true,
+    length: 14
   },
   university: {
     type: String,
@@ -25,7 +27,8 @@ const otherStudentSchema = new mongoose.Schema({
   level: {
     type: Number,
     required: true,
-    min: 1
+    min: 1,
+    max: 7
   }
 }, {
   timestamps: true
