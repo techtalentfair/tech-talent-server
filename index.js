@@ -14,6 +14,7 @@ const publicRouter = require("./routes/publicRoutes");
 const projectRouter = require("./routes/projectRoutes");
 const subscriberRouter = require("./routes/subscriberRoutes");
 const emailRouter = require("./routes/emailRoutes");
+const registerRouter = require("./routes/registerRoutes");
 
 dotenv.config({ path: `${__dirname}/.env` });
 
@@ -32,6 +33,7 @@ app.use("/api/public", publicRouter);
 app.use("/api/projects", projectRouter);
 app.use("/api/subscribers", subscriberRouter);
 app.use("/api/emails", emailRouter);
+app.use("/api/register", registerRouter);
 
 app.get("/", (req, res) => {
   res.status(200).send("TECHTALENT SERVER!");
