@@ -1,14 +1,14 @@
-const { AppError, STATUS } = require("../utils/appError.js");
+const { AppError, STATUS } = require("../../utils/appError.js");
 const {
   getErrorMessage,
   getSuccessMessage,
   TYPES,
-} = require("../utils/getMessage.js");
-const Event = require("../models/eventModel.js");
-const HomePage = require("../models/pages/homePage.js");
-const AboutPage = require("../models/pages/aboutPage.js");
-const asyncWrapper = require("../middlewares/asyncWrapper.js");
-const Email = require("../models/emailModel.js");
+} = require("../../utils/getMessage.js");
+const Event = require("../../models/eventModel.js");
+const HomePage = require("../../models/pages/homePage.js");
+const AboutPage = require("../../models/pages/aboutPage.js");
+const asyncWrapper = require("../../middlewares/asyncWrapper.js");
+const Email = require("../../models/emailModel.js");
 
 // @desc Get Home Page data
 // @route GET /api/home

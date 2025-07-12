@@ -3,14 +3,14 @@ const mongoose = require("mongoose");
 const {
   AppError,
   STATUS
-} = require("../utils/appError");
+} = require("../../utils/appError");
 const {
   TYPES,
   getErrorMessage,
   getSuccessMessage
-} = require("../utils/getMessage");
-const Email = require("../models/emailModel");
-const asyncWrapper = require("../middlewares/asyncWrapper");
+} = require("../../utils/getMessage");
+const Email = require("../../models/emailModel");
+const asyncWrapper = require("../../middlewares/asyncWrapper");
 
 
 // get All ContactUs Emails (Protected Route)

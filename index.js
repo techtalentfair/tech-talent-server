@@ -7,14 +7,7 @@ const mongoose = require("mongoose");
 const {
   STATUS
 } = require("./utils/appError");
-const authRouter = require("./routes/authRoutes");
-const fileRouter = require("./routes/fileRoutes");
-const eventRouter = require("./routes/eventRoutes");
-const publicRouter = require("./routes/publicRoutes");
-const projectRouter = require("./routes/projectRoutes");
-const subscriberRouter = require("./routes/subscriberRoutes");
-const emailRouter = require("./routes/emailRoutes");
-const registerRouter = require("./routes/registerRoutes");
+const routes = require("./routes/versions");
 
 dotenv.config({ path: `${__dirname}/.env` });
 
@@ -25,15 +18,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());
 
-app.use("/api/auth", authRouter);
-app.use("/api/public", publicRouter);
-app.use("/api/files", fileRouter);
-app.use("/api/events", eventRouter);
-app.use("/api/public", publicRouter);
-app.use("/api/projects", projectRouter);
-app.use("/api/subscribers", subscriberRouter);
-app.use("/api/emails", emailRouter);
-app.use("/api/register", registerRouter);
+app.use("/api/v1/auth", routes.v1.authRoutes);
+app.use("/api/v1/public", routes.v1.publicRoutes);
+app.use("/api/v1/files", routes.v1.fileRoutes);
+app.use("/api/v1/events", routes.v1.eventRoutes);
+app.use("/api/v1/public", routes.v1.publicRoutes);
+app.use("/api/v1/projects", routes.v1.projectRoutes);
+app.use("/api/v1/subscribers", routes.v1.subscriberRoutes);
+app.use("/api/v1/emails", routes.v1.emailRoutes);
+app.use("/api/v1/register", routes.v1.registerRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).send("TECHTALENT SERVER!");

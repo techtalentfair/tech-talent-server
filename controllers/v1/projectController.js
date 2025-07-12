@@ -3,14 +3,14 @@ const mongoose = require("mongoose");
 const {
 	AppError,
 	STATUS
-} = require("../utils/appError");
+} = require("../../utils/appError");
 const {
 	TYPES,
 	getErrorMessage,
 	getSuccessMessage
-} = require("../utils/getMessage");
-const Project = require('../models/projectModel');
-const asyncWrapper = require('../middlewares/asyncWrapper');
+} = require("../../utils/getMessage");
+const Project = require('../../models/projectModel');
+const asyncWrapper = require('../../middlewares/asyncWrapper');
 
 const getProjectById = asyncWrapper(async (req, res, next) => {
 
