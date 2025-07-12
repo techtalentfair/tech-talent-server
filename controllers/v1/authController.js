@@ -3,17 +3,17 @@ const bcryptjs = require("bcryptjs");
 const {
   AppError,
   STATUS
-} = require("../utils/appError");
+} = require("../../utils/appError");
 const {
   TYPES,
   getErrorMessage,
   getSuccessMessage
-} = require("../utils/getMessage");
-const User = require("../models/userModel");
-const asyncWrapper = require("../middlewares/asyncWrapper");
-const generateToken = require("../utils/generateToken");
-const ROLES = require("../utils/roles");
-const SMTP = require("../utils/email");
+} = require("../../utils/getMessage");
+const User = require("../../models/userModel");
+const asyncWrapper = require("../../middlewares/asyncWrapper");
+const generateToken = require("../../utils/generateToken");
+const ROLES = require("../../utils/roles");
+const SMTP = require("../../utils/email");
 
 const signUp = asyncWrapper(async (req, res, next) => {
 
