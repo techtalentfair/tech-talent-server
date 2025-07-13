@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
-const { AppError, STATUS } = require("../utils/appError");
-const { TYPES, getErrorMessage, getSuccessMessage } = require("../utils/getMessage");
-const FSCUStudent = require('../models/FSCUStudentModel');
-const OtherStudent = require('../models/OtherStudentModel');
-const Corporate = require('../models/CorporateModel');
-const asyncWrapper = require('../middlewares/asyncWrapper');
+const { AppError, STATUS } = require("../../utils/appError");
+const { TYPES, getErrorMessage, getSuccessMessage } = require("../../utils/getMessage");
+const FSCUStudent = require('../../models/FSCUStudentModel');
+const OtherStudent = require('../../models/OtherStudentModel');
+const Corporate = require('../../models/CorporateModel');
+const asyncWrapper = require('../../middlewares/asyncWrapper');
 
 const processAttendant = asyncWrapper(async (req, res, next) => {
 	if (!req.body || !req.body.type) {

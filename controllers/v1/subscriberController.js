@@ -3,14 +3,14 @@ const mongoose = require("mongoose");
 const {
   AppError,
   STATUS
-} = require("../utils/appError");
+} = require("../../utils/appError");
 const {
   TYPES,
   getErrorMessage,
   getSuccessMessage,
-} = require("../utils/getMessage");
-const Subscriber = require("../models/subscriberModel");
-const asyncWrapper = require("../middlewares/asyncWrapper");
+} = require("../../utils/getMessage");
+const Subscriber = require("../../models/subscriberModel");
+const asyncWrapper = require("../../middlewares/asyncWrapper");
 
 // add a new subscriber
 const createSubscriber = asyncWrapper(async (req, res, next) => {

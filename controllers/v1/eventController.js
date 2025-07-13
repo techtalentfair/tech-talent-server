@@ -3,16 +3,16 @@ const mongoose = require("mongoose");
 const {
     AppError,
     STATUS
-} = require("../utils/appError");
+} = require("../../utils/appError");
 const {
     TYPES,
     getErrorMessage,
     getSuccessMessage
-} = require("../utils/getMessage");
-const Event = require("../models/eventModel");
-const upload = require("../utils/cloudinary");
-const asyncWrapper = require("../middlewares/asyncWrapper");
-const Project = require("../models/projectModel");
+} = require("../../utils/getMessage");
+const Event = require("../../models/eventModel");
+const upload = require("../../utils/cloudinary");
+const asyncWrapper = require("../../middlewares/asyncWrapper");
+const Project = require("../../models/projectModel");
 
 const getEvents = asyncWrapper(async (req, res, next) => {
 

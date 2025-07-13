@@ -1,14 +1,14 @@
 const {
   AppError,
   STATUS
-} = require("../utils/appError");
+} = require("../../utils/appError");
 const {
   TYPES,
   getErrorMessage,
   getSuccessMessage
-} = require("../utils/getMessage");
-const uploadToCloudinary = require("../utils/cloudinary");
-const asyncWrapper = require("../middlewares/asyncWrapper");
+} = require("../../utils/getMessage");
+const uploadToCloudinary = require("../../utils/cloudinary");
+const asyncWrapper = require("../../middlewares/asyncWrapper");
 
 const uploadFile = asyncWrapper(async (req, res, next) => {
 
